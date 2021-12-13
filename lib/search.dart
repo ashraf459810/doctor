@@ -103,9 +103,9 @@ class _SearchState extends State<Search> {
                 return GestureDetector(
                   onTap: () {
                     context.read<HomeBloc>().add(SearchEvent(
-                        "${dateTime1.year}-${dateTime1.month}-${dateTime1.day}",
+                        "${dateTime1.day}-${dateTime1.month}-${dateTime1.year}",
                         name ?? "",
-                        "${dateTime2.year}-${dateTime2.month}-${dateTime2.day}"));
+                        "${dateTime2.day}-${dateTime2.month}-${dateTime2.year}"));
                   },
                   child: container(
                       hight: h(60),

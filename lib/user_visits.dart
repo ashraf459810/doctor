@@ -136,7 +136,7 @@ class _UserVisitsState extends State<UserVisits> {
                                               child: text(
                                                   fontWeight: FontWeight.bold,
                                                   fontsize: 18.sp,
-                                                  text: widget.name)),
+                                                  text: visits[index].name)),
                                           Container(
                                             alignment: Alignment.center,
                                             width: w(100),

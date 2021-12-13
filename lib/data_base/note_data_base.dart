@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:doctor/model/notes.dart';
 import 'package:doctor/model/visits_model.dart';
 import 'package:doctor/user_visits.dart';
@@ -19,7 +21,7 @@ class DatabaseHelper {
   String noteVisit = 'visit_table';
 
   String visitId = 'id';
-  String visiterName = 'name';
+  String visiterName = 'visitName';
   String visitsPrimaryKey = 'visitId';
 
   String visitsDates = 'date';
@@ -180,9 +182,11 @@ class DatabaseHelper {
       String name, String date1, String date2) async {
     Database db = await database;
 
-//		var result = await db.rawQuery('SELECT * FROM $noteTable order by $colPriority ASC');
+//
+//	var result = await db.rawQuery('SELECT * FROM $noteTable order by $colPriority ASC');
+
     var result = await db.rawQuery(
-        'SELECT * from $noteVisit WHERE  $date1< $visitsDates <$date2 And $visiterName=$name');
+        'SELECT * from $noteVisit   WHERE (date < $date1 AND  date >$date2 ) or $visiterName="$name" ');
     return result;
   }
 

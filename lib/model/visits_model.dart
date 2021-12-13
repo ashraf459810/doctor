@@ -24,7 +24,7 @@ class Visits {
     var map = Map<String, dynamic>();
 
     map['id'] = _id;
-    map['name'] = _name;
+    map['visitName'] = _name;
     map['visitId'] = visitid;
 
     map['date'] = _date;
@@ -35,7 +35,7 @@ class Visits {
   // Extract a Note object from a Map object
   Visits.fromMapObject(Map<String, dynamic> map) {
     _id = map['id'];
-    _name = map['name'];
+    _name = map['visitName'];
     visitid = map["visitId"];
     _date = map['date'];
   }
