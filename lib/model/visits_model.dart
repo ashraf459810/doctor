@@ -2,6 +2,7 @@ class Visits {
   late int _id;
 
   late String _date;
+  int? visitid;
 
   Visits(
     this._id,
@@ -33,7 +34,7 @@ class Visits {
   // Extract a Note object from a Map object
   Visits.fromMapObject(Map<String, dynamic> map) {
     _id = map['id'];
-
+    visitid = map["visitId"];
     _date = map['date'];
   }
 }

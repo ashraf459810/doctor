@@ -156,7 +156,7 @@ class DatabaseHelper {
   Future<int> deleteVisit(int id) async {
     var db = await database;
     int result = await db
-        .rawDelete('DELETE FROM $noteVisit WHERE $notePrimaryKey = $id');
+        .rawDelete('DELETE FROM $noteVisit WHERE $visitsPrimaryKey = $id');
     return result;
   }
 

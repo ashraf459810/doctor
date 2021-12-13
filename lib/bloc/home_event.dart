@@ -24,3 +24,18 @@ class GetVisitsForUserEvent extends HomeEvent {
 
   GetVisitsForUserEvent(this.id);
 }
+
+class DeleteUser extends HomeEvent {
+  final int userid;
+
+  DeleteUser(this.userid);
+}
+
+class DeleteVisit extends HomeEvent {
+  final int visitid;
+  final int noteid;
+  final int visitsNumber;
+  final Note note;
+
+  DeleteVisit(this.visitid, this.noteid, this.visitsNumber, this.note);
+}

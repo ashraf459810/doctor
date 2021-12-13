@@ -128,28 +128,59 @@ class _MyHomePageState extends State<MyHomePage> {
                         itemBuilder: (context, index) => Padding(
                           padding: EdgeInsets.symmetric(vertical: h(20)),
                           child: container(
-                            hight: h(40),
+                            hight: h(50),
                             bordercolor: Colors.blue[200],
                             color: Colors.white,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                InkWell(
-                                    onTap: () {
-                                      nav(
-                                          context,
-                                          UserVisits(
-                                            id: notes[index].id!,
-                                          ));
-                                    },
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      width: w(110),
-                                      child: text(
-                                          fontWeight: FontWeight.bold,
-                                          text: notes[index].name,
-                                          fontsize: 20.sp),
-                                    )),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        context
+                                            .read<HomeBloc>()
+                                            .add(DeleteUser(notes[index].id!));
+                                      },
+                                      child: Container(
+                                        color: Colors.blue[400],
+                                        width: w(30),
+                                        height: h(35),
+                                        child: const Center(
+                                          child: Icon(
+                                            Icons.close,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    InkWell(
+                                        onTap: () {
+                                          nav(
+                                              context,
+                                              UserVisits(
+                                                  id: notes[index].id!,
+                                                  name: notes[index].name,
+                                                  note: notes[index],
+                                                  function: () {
+                                                    context
+                                                        .read<HomeBloc>()
+                                                        .add(
+                                                            GetDataBaseEvent());
+                                                  }));
+                                        },
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          width: w(180),
+                                          child: text(
+                                              fontWeight: FontWeight.bold,
+                                              text: notes[index].name,
+                                              fontsize: 20.sp),
+                                        )),
+                                  ],
+                                ),
                                 Container(
                                   alignment: Alignment.center,
                                   width: w(100),
@@ -174,12 +205,13 @@ class _MyHomePageState extends State<MyHomePage> {
                                                       1));
                                         },
                                         child: Container(
+                                          height: h(35),
+                                          width: w(30),
                                           color: Colors.blue[400],
-                                          child: Center(
+                                          child: const Center(
                                             child: Icon(
                                               Icons.add,
                                               color: Colors.white,
-                                              size: w(30),
                                             ),
                                           ),
                                         ),

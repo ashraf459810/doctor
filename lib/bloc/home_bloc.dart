@@ -53,6 +53,22 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         log(visits.length.toString());
         emit(GetUserVisitsState(visits));
       }
+
+      if (event is DeleteUser) {
+        emit(Loading());
+        await databaseHelper.deleteNote(event.userid);
+        await databaseHelper.deleteVisit(event.userid);
+        add(GetDataBaseEvent());
+      }
+      if (event is DeleteVisit) {
+        emit(Loading());
+        await databaseHelper.deleteVisit(event.visitid);
+        await databaseHelper.updateNote(Note.withId(event.note.id,
+            event.note.name, event.note.date, event.visitsNumber - 1));
+
+        add(GetVisitsForUserEvent(event.noteid));
+        // add(GetDataBaseEvent());
+      }
     });
   }
 }
