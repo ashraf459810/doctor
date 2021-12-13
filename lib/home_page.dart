@@ -5,6 +5,7 @@ import 'package:doctor/Widgets/nav.dart';
 import 'package:doctor/Widgets/text.dart';
 import 'package:doctor/Widgets/text_form.dart';
 import 'package:doctor/model/notes.dart';
+import 'package:doctor/search.dart';
 import 'package:doctor/user_visits.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       color: Colors.white,
                       borderRadius: 5,
                       hight: h(50),
-                      width: w(250),
+                      width: w(200),
                       child: textform(
                           controller: controller,
                           hint: "Enter Name",
@@ -76,14 +77,29 @@ class _MyHomePageState extends State<MyHomePage> {
                           color: Colors.blue,
                           borderRadius: 20,
                           hight: h(40),
-                          width: w(80),
+                          width: w(50),
                           child: text(
                               fontWeight: FontWeight.bold,
-                              fontsize: 18.sp,
+                              fontsize: 12.sp,
                               text: "Add",
                               color: Colors.white)),
                     );
-                  })
+                  }),
+                  GestureDetector(
+                    onTap: () {
+                      nav(context, const Search());
+                    },
+                    child: container(
+                        color: Colors.blue,
+                        borderRadius: 20,
+                        hight: h(40),
+                        width: w(50),
+                        child: text(
+                            fontWeight: FontWeight.bold,
+                            fontsize: 12.sp,
+                            text: "Search",
+                            color: Colors.white)),
+                  ),
                 ],
               ),
               SizedBox(

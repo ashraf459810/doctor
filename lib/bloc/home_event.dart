@@ -39,3 +39,11 @@ class DeleteVisit extends HomeEvent {
 
   DeleteVisit(this.visitid, this.noteid, this.visitsNumber, this.note);
 }
+
+class SearchEvent extends HomeEvent {
+  final String date1;
+  final String date2;
+  final String name;
+
+  SearchEvent(this.date1, this.name, this.date2);
+}

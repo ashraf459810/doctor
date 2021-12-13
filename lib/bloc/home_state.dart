@@ -18,3 +18,9 @@ class GetUserVisitsState extends HomeState {
 
   GetUserVisitsState(this.visits);
 }
+
+class SearchState extends HomeState {
+  final List<Visits> visits;
+
+  SearchState(this.visits);
+}

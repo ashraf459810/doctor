@@ -1,5 +1,6 @@
 import 'package:doctor/model/notes.dart';
 import 'package:doctor/model/visits_model.dart';
+import 'package:doctor/user_visits.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
 import 'dart:io';
@@ -18,6 +19,7 @@ class DatabaseHelper {
   String noteVisit = 'visit_table';
 
   String visitId = 'id';
+  String visiterName = 'name';
   String visitsPrimaryKey = 'visitId';
 
   String visitsDates = 'date';
@@ -61,6 +63,7 @@ class DatabaseHelper {
         $visitsPrimaryKey integer primary key autoincrement,
         $visitId integer not null,
         $visitsDates DATETIME not null,
+        $visiterName text not null,
         FOREIGN KEY($visitId) REFERENCES $noteTable($notePrimaryKey)
        )''');
   }
@@ -171,5 +174,29 @@ class DatabaseHelper {
     Database db = await database;
     var result = await db.insert(noteVisit, visit.toMap());
     return result;
+  }
+
+  Future<List<Map<String, dynamic>>> searchedVisitsMapList(
+      String name, String date1, String date2) async {
+    Database db = await database;
+
+//		var result = await db.rawQuery('SELECT * FROM $noteTable order by $colPriority ASC');
+    var result = await db.rawQuery(
+        'SELECT * from $noteVisit WHERE  $date1< $visitsDates <$date2 And $visiterName=$name');
+    return result;
+  }
+
+  Future<List<Visits>> search(String name, String date1, String date2) async {
+    var searchedvisitsmaptolist =
+        await searchedVisitsMapList(name, date1, date2);
+
+    List<Visits> visits = [];
+    int count = searchedvisitsmaptolist.length;
+
+    for (int i = 0; i < count; i++) {
+      visits.add(Visits.fromMapObject(searchedvisitsmaptolist[i]));
+    }
+
+    return visits;
   }
 }

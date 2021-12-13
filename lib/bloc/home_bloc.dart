@@ -30,7 +30,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         int returnedId = await databaseHelper.insertNote(event.note);
         log(returnedId.toString());
 
-        databaseHelper.insertVisit(Visits(returnedId, event.note.date));
+        databaseHelper
+            .insertVisit(Visits(returnedId, event.note.date, event.note.name));
 
         add(GetDataBaseEvent());
       }
@@ -39,10 +40,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         await databaseHelper
             .updateNote(Note.withId(
                 event.id, event.name, event.date, event.visitNumber))
-            .then((value) => databaseHelper.insertVisit(Visits(
-                  event.id,
-                  event.date,
-                )));
+            .then((value) => databaseHelper
+                .insertVisit(Visits(event.id, event.date, event.name)));
 
         add(GetDataBaseEvent());
       }
@@ -68,6 +67,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
         add(GetVisitsForUserEvent(event.noteid));
         // add(GetDataBaseEvent());
+      }
+      if (event is SearchEvent) {
+        // emit(Loading());
+        List<Visits> visits =
+            await databaseHelper.search(event.name, event.date1, event.date2);
+        log(visits.length.toString());
+
+        emit(SearchState(visits));
       }
     });
   }
