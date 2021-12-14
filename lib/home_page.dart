@@ -64,11 +64,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     return GestureDetector(
                       onTap: () {
                         if (name != null) {
-                          log(name!);
-                          log(getCurrentDate());
+                          controller.clear();
 
                           int count = 1;
-                          log(count.toString());
+
                           Note note = Note(name!, getCurrentDate(), count);
                           context.read<HomeBloc>().add(InserNoteEvent(note));
                         }
@@ -135,7 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
                 builder: (context, state) {
                   if (state is Loading) {
-                    return const Center(child: LinearProgressIndicator());
+                    // return const Center(child: LinearProgressIndicator());
                   }
                   return SizedBox(
                       height: h(600),

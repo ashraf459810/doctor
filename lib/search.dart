@@ -107,6 +107,8 @@ class _SearchState extends State<Search> {
                         "${dateTime1.year}-${dateTime1.month}-${dateTime1.day}",
                         name ?? "empty",
                         "${dateTime2.year}-${dateTime2.month}-${dateTime2.day}"));
+                    name = "empty";
+                    namec.clear();
                   },
                   child: container(
                       hight: h(60),
@@ -176,35 +178,38 @@ class _SearchState extends State<Search> {
                         ),
                         container(
                           hight: h(450),
-                          child: ListView.builder(
-                            itemCount: visits.length,
-                            itemBuilder: (context, index) => Padding(
-                              padding: EdgeInsets.symmetric(vertical: h(20)),
-                              child: container(
-                                hight: h(50),
-                                bordercolor: Colors.blue[200],
-                                color: Colors.white,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      alignment: Alignment.center,
-                                      width: w(180),
-                                      child: text(
-                                          fontWeight: FontWeight.bold,
-                                          text: visits[index].name,
-                                          fontsize: 20.sp),
-                                    ),
-                                    Container(
-                                      alignment: Alignment.centerLeft,
-                                      width: w(140),
-                                      child: text(
-                                          fontWeight: FontWeight.bold,
-                                          text: visits[index].date,
-                                          fontsize: 20.sp),
-                                    ),
-                                  ],
+                          child: Center(
+                            child: ListView.builder(
+                              padding: EdgeInsets.all(1),
+                              itemCount: visits.length,
+                              itemBuilder: (context, index) => Padding(
+                                padding: EdgeInsets.symmetric(vertical: h(20)),
+                                child: container(
+                                  hight: h(50),
+                                  bordercolor: Colors.blue[200],
+                                  color: Colors.white,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        alignment: Alignment.center,
+                                        width: w(180),
+                                        child: text(
+                                            fontWeight: FontWeight.bold,
+                                            text: visits[index].name,
+                                            fontsize: 20.sp),
+                                      ),
+                                      Container(
+                                        alignment: Alignment.centerLeft,
+                                        width: w(140),
+                                        child: text(
+                                            fontWeight: FontWeight.bold,
+                                            text: visits[index].date,
+                                            fontsize: 20.sp),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),

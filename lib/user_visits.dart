@@ -50,9 +50,6 @@ class _UserVisitsState extends State<UserVisits> {
                 SizedBox(
                   height: h(50),
                 ),
-                SizedBox(
-                  height: h(50),
-                ),
                 Container(
                   height: h(40),
                   color: Colors.blue[400],
