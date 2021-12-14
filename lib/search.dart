@@ -17,6 +17,7 @@ class Search extends StatefulWidget {
 
 class _SearchState extends State<Search> {
   late DateTime dateTime1;
+  String totalvisits = "0";
   late DateTime dateTime2;
   String? name;
   List<Visits> visits = [];
@@ -123,7 +124,22 @@ class _SearchState extends State<Search> {
             ],
           ),
           SizedBox(
-            height: h(30),
+            height: h(10),
+          ),
+          BlocBuilder<HomeBloc, HomeState>(
+            builder: (context, state) {
+              if (state is SearchState) {
+                totalvisits = state.visits.length.toString();
+              }
+              return SizedBox(
+                height: h(20),
+                child: text(
+                    text: "Total Visits $totalvisits",
+                    fontsize: 16.sp,
+                    color: Colors.red,
+                    fontWeight: FontWeight.bold),
+              );
+            },
           ),
           container(
               color: Colors.blue,
@@ -151,41 +167,50 @@ class _SearchState extends State<Search> {
                     // }
                     if (state is SearchState) {
                       visits = state.visits;
+                      totalvisits = state.visits.length.toString();
                     }
-                    return container(
-                      hight: h(460),
-                      child: ListView.builder(
-                        itemCount: visits.length,
-                        itemBuilder: (context, index) => Padding(
-                          padding: EdgeInsets.symmetric(vertical: h(20)),
-                          child: container(
-                            hight: h(50),
-                            bordercolor: Colors.blue[200],
-                            color: Colors.white,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  alignment: Alignment.center,
-                                  width: w(180),
-                                  child: text(
-                                      fontWeight: FontWeight.bold,
-                                      text: visits[index].name,
-                                      fontsize: 20.sp),
+                    return Column(
+                      children: [
+                        SizedBox(
+                          height: h(10),
+                        ),
+                        container(
+                          hight: h(450),
+                          child: ListView.builder(
+                            itemCount: visits.length,
+                            itemBuilder: (context, index) => Padding(
+                              padding: EdgeInsets.symmetric(vertical: h(20)),
+                              child: container(
+                                hight: h(50),
+                                bordercolor: Colors.blue[200],
+                                color: Colors.white,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      alignment: Alignment.center,
+                                      width: w(180),
+                                      child: text(
+                                          fontWeight: FontWeight.bold,
+                                          text: visits[index].name,
+                                          fontsize: 20.sp),
+                                    ),
+                                    Container(
+                                      alignment: Alignment.centerLeft,
+                                      width: w(140),
+                                      child: text(
+                                          fontWeight: FontWeight.bold,
+                                          text: visits[index].date,
+                                          fontsize: 20.sp),
+                                    ),
+                                  ],
                                 ),
-                                Container(
-                                  alignment: Alignment.centerLeft,
-                                  width: w(140),
-                                  child: text(
-                                      fontWeight: FontWeight.bold,
-                                      text: visits[index].date,
-                                      fontsize: 20.sp),
-                                ),
-                              ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
+                      ],
                     );
                   },
                 )

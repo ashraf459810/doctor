@@ -4,7 +4,7 @@
         android:label="doctor"
         android:icon="@mipmap/ic_launcher">
         <activity
-        android:allowBackup="false"
+        android:allowBackup="true"
             android:name=".MainActivity"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
