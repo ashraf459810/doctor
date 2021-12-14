@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:doctor/model/notes.dart';
 import 'package:doctor/model/visits_model.dart';
-import 'package:doctor/user_visits.dart';
+
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
 import 'dart:io';
@@ -83,6 +83,15 @@ class DatabaseHelper {
   Future<int> insertNote(Note note) async {
     Database db = await database;
     var result = await db.insert(noteTable, note.toMap());
+
+    return result;
+  }
+
+  Future<List<Map<String, dynamic>>> checkIfExist(Note note) async {
+    String namee = note.name;
+    Database db = await database;
+    var result =
+        await db.rawQuery('SELECT * from $noteTable where name = "$namee" ');
 
     return result;
   }

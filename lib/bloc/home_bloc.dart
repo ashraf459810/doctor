@@ -26,14 +26,17 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
       if (event is InserNoteEvent) {
         // emit(Loading());
+        final result = await databaseHelper.checkIfExist(event.note);
+        if (result.isEmpty) {
+          int returnedId = await databaseHelper.insertNote(event.note);
 
-        int returnedId = await databaseHelper.insertNote(event.note);
-        log(returnedId.toString());
+          databaseHelper.insertVisit(
+              Visits(returnedId, event.note.date, event.note.name));
 
-        databaseHelper
-            .insertVisit(Visits(returnedId, event.note.date, event.note.name));
-
-        add(GetDataBaseEvent());
+          add(GetDataBaseEvent());
+        } else {
+          emit(Error("Name Already Exist"));
+        }
       }
       if (event is AddVisitEvent) {
         // emit(Loading());

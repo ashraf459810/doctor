@@ -24,3 +24,9 @@ class SearchState extends HomeState {
 
   SearchState(this.visits);
 }
+
+class Error extends HomeState {
+  final String error;
+
+  Error(this.error);
+}
