@@ -184,10 +184,27 @@ class DatabaseHelper {
 
 //
 //	var result = await db.rawQuery('SELECT * FROM $noteTable order by $colPriority ASC');
+    if (name == "empty" && date1 != date2) {
+      log("empty name and dates diffrent");
 
-    var result = await db.rawQuery(
-        'SELECT * from $noteVisit   WHERE (date < $date1 AND  date >$date2 ) or $visiterName="$name" ');
-    return result;
+      var result = await db.rawQuery(
+          "SELECT * FROM $noteVisit where date >= '$date1' and  date <= '$date2' ");
+      return result;
+    } else if (date1 == date2 && name != "empty") {
+      log("not empty name and dates equal");
+      var result = await db.rawQuery(
+          "SELECT * from $noteVisit   WHERE date = '$date1'  and $visiterName='$name' ");
+      return result;
+    } else if (date1 == date2 && name == "empty") {
+      log("empty name and dates equal");
+      var result =
+          await db.rawQuery("SELECT * from $noteVisit   WHERE date = '$date1'");
+      return result;
+    } else {
+      var result = await db.rawQuery(
+          "SELECT * from $noteVisit   WHERE (date < '$date1' AND  date > '$date2' ) or $visiterName='$name' ");
+      return result;
+    }
   }
 
   Future<List<Visits>> search(String name, String date1, String date2) async {

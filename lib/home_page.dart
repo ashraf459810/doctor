@@ -252,7 +252,9 @@ class _MyHomePageState extends State<MyHomePage> {
         DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
     String currentDate =
-        "${dateToday.day.toString()}-${dateToday.month.toString()}-${dateToday.year.toString()}";
+        "${dateToday.year.toString()}-${dateToday.month.toString()}-${dateToday.day.toString()}";
+
+    log(currentDate);
 
     return currentDate;
   }
