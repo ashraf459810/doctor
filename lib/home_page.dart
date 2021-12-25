@@ -225,27 +225,39 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 .visitNumber
                                                 .toString(),
                                             fontsize: 20.sp),
-                                        InkWell(
-                                          onTap: () {
-                                            log(notes[index].id.toString());
-                                            context.read<HomeBloc>().add(
-                                                AddVisitEvent(
-                                                    getCurrentDate(),
-                                                    // getCurrentDate(),
-                                                    notes[index].id!,
-                                                    notes[index].name,
-                                                    notes[index].visitNumber +
-                                                        1));
-                                          },
-                                          child: Container(
-                                            height: h(35),
-                                            width: w(30),
-                                            color: Colors.blue[400],
-                                            child: const Center(
-                                              child: Icon(
-                                                Icons.add,
-                                                color: Colors.white,
-                                              ),
+                                        IgnorePointer(
+                                          ignoring:
+                                              state is Loading ? true : false,
+                                          child: InkWell(
+                                            onTap: () {
+                                              log(notes[index].id.toString());
+                                              context.read<HomeBloc>().add(
+                                                  AddVisitEvent(
+                                                      getCurrentDate(),
+                                                      // getCurrentDate(),
+                                                      notes[index].id!,
+                                                      notes[index].name,
+                                                      notes[index].visitNumber +
+                                                          1));
+                                            },
+                                            child: BlocBuilder<HomeBloc,
+                                                HomeState>(
+                                              builder: (context, state) {
+                                                if (state is Loading) {
+                                                  return const CircularProgressIndicator();
+                                                }
+                                                return Container(
+                                                  height: h(35),
+                                                  width: w(30),
+                                                  color: Colors.blue[400],
+                                                  child: const Center(
+                                                    child: Icon(
+                                                      Icons.add,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                );
+                                              },
                                             ),
                                           ),
                                         )

@@ -47,9 +47,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             .updateNote(Note.withId(
                 event.id, event.name, event.date, event.visitNumber))
             .then((value) => databaseHelper
-                .insertVisit(Visits(event.id, event.date, event.name)));
-
-        add(GetDataBaseEvent());
+                .insertVisit(Visits(event.id, event.date, event.name))
+                .then((value) => add(GetDataBaseEvent())));
       }
 
       if (event is GetVisitsForUserEvent) {
