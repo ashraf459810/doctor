@@ -194,6 +194,14 @@ class DatabaseHelper {
     return result;
   }
 
+  Future<int> repairDataBase() async {
+    Database db = await database;
+    var result = await db.rawDelete(
+        'DELETE FROM $noteVisit WHERE visitId NOT IN (SELECT $notePrimaryKey FROM $noteTable);');
+
+    return result;
+  }
+
   Future<List<Map<String, dynamic>>> searchedVisitsMapList(
       String name, String date1, String date2) async {
     Database db = await database;

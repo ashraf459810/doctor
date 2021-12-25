@@ -13,6 +13,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'bloc/home_bloc.dart';
+import 'data_base/note_data_base.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({
@@ -28,8 +29,13 @@ class _MyHomePageState extends State<MyHomePage> {
   HomeBloc homeBloc = HomeBloc();
   TextEditingController controller = TextEditingController();
   String? name;
+
+  DatabaseHelper databaseHelper = DatabaseHelper();
   @override
   void initState() {
+    databaseHelper.initializeDatabase();
+    var result = databaseHelper.repairDataBase();
+    print(result);
     super.initState();
   }
 

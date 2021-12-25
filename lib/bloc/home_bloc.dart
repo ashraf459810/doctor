@@ -64,9 +64,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       }
       if (event is DeleteVisit) {
         // emit(Loading());
-        await databaseHelper.deleteOneVisit(event.visitid);
-        await databaseHelper.updateNote(Note.withId(event.note.id,
-            event.note.name, event.note.date, event.visitsNumber - 1));
+        await databaseHelper.deleteOneVisit(event.visitid).then((value) =>
+            databaseHelper.updateNote(Note.withId(event.note.id,
+                event.note.name, event.note.date, event.visitsNumber - 1)));
 
         add(GetVisitsForUserEvent(event.noteid));
         // add(GetDataBaseEvent());
