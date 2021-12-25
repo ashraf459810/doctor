@@ -58,8 +58,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
       if (event is DeleteUser) {
         emit(Loading());
-        await databaseHelper.deleteNote(event.userid);
-        await databaseHelper.deleteVisit(event.userid);
+        await databaseHelper
+            .deleteNote(event.userid)
+            .then((value) => databaseHelper.deleteVisit(event.userid));
         add(GetDataBaseEvent());
       }
       if (event is DeleteVisit) {
