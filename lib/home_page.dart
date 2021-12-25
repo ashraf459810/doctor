@@ -224,9 +224,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                             fontsize: 20.sp),
                                         InkWell(
                                           onTap: () {
+                                            log(notes[index].id.toString());
                                             context.read<HomeBloc>().add(
                                                 AddVisitEvent(
                                                     getCurrentDate(),
+                                                    // getCurrentDate(),
                                                     notes[index].id!,
                                                     notes[index].name,
                                                     notes[index].visitNumber +
