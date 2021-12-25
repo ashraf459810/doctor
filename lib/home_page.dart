@@ -33,9 +33,6 @@ class _MyHomePageState extends State<MyHomePage> {
   DatabaseHelper databaseHelper = DatabaseHelper();
   @override
   void initState() {
-    databaseHelper.initializeDatabase();
-    var result = databaseHelper.repairDataBase();
-    print(result);
     super.initState();
   }
 
@@ -135,7 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   height: h(30),
                 ),
                 BlocConsumer<HomeBloc, HomeState>(
-                  listener: (context, state) {
+                  listener: (context, state) async {
                     if (state is Error) {
                       Fluttertoast.showToast(
                           msg: state.error,

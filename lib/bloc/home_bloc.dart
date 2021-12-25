@@ -19,6 +19,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
       emit(Loading());
       if (event is GetDataBaseEvent) {
+        var result = await databaseHelper.repairDataBase();
+        log(result.toString());
+
         List<Note> notes = await databaseHelper.getNoteList();
 
         emit(GetDataBaseState(notes));
