@@ -75,7 +75,8 @@ class DatabaseHelper {
     Database db = await database;
 
 //		var result = await db.rawQuery('SELECT * FROM $noteTable order by $colPriority ASC');
-    var result = await db.query(noteTable, orderBy: '$name ASC');
+    var result = await db.rawQuery(
+        'SELECT $notePrimaryKey , $name AS name, (SELECT COUNT(v.$visitsPrimaryKey) FROM $noteVisit v WHERE v.$visitId = n.$notePrimaryKey) AS $visitsnumber, $date FROM $noteTable n;');
     return result;
   }
 
